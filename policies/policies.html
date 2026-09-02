@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nails by Joy - Policies & Reminders</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+
+    <script src="https://kit.fontawesome.com/5d7cbd0185.js" crossorigin="anonymous"></script>
+    <script src="one.js"></script>
+</head>
+
+<body>
+
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-content">
+            <img src="logo.png" class="intro-logo-img" alt="Nails by Joy Logo">
+            <h1 class="intro-title">Nails by Joy</h1>
+            <p class="intro-subtitle">Elegance at Your Fingertips</p>
+        </div>
+    </div>
+
+    <header>
+        <a href="/WEBSITE/prujik/HOME/index.html">
+            <img src="logo.png" class="logo" alt="Nails by Joy Logo">
+        </a>
+
+        <a href="/WEBSITE/prujik/HOME/index.html">
+            <h1>Nails by Joy</h1>
+        </a>
+
+        <div class="one" onclick="toggleMenu();"></div>
+
+        <ul class="navigation">
+            <li><a href="/WEBSITE/prujik/HOME/index.html">Home</a></li>
+            <li><a href="/WEBSITE/prujik/PORTFOLIO/portfolio.html">Portfolio</a></li>
+            <li><a href="/WEBSITE/prujik/PRICELIST/Pricelist.html">Price List</a></li>
+            <li><a href="/WEBSITE/prujik/POLICIES/Policies.html">Policies</a></li>
+
+            <li>
+                <button class="open-form-btn" onclick="openFormPopup()">Book Here</button>
+            </li>
+        </ul>
+    </header>
+
+    <main id="policies">
+        <div class="glass-card policy-card">
+            <h2>Reminders</h2>
+
+            <div class="inner-table policy-table">
+                <div class="policy-row">
+                    <div class="policy-bullet">
+                        <span class="highlight-underline">₱200 down payment</span> is required for booking to secure your slot. This will be deducted from the total price and is non-refundable.
+                    </div>
+                </div>
+                <div class="policy-row">
+                    <div class="policy-bullet">
+                        If no show, no update or same day cancellation, the ₱200 downpayment is going to be <span class="bold-text">forfeited</span>. If I didn't ask for DP, you must still pay for it and the cancellation fee.
+                    </div>
+                </div>
+
+                <div class="policy-row">
+                    <div class="policy-section">
+                        <span class="policy-tag">Late Fee:</span>
+                        <p>10 Mins – <span class="highlight-underline">₱100</span></p>
+                        <p>20 Mins – <span class="highlight-underline">Considered as cancelled.</span></p>
+                    </div>
+                </div>
+
+                <div class="policy-row">
+                    <div class="policy-section">
+                        <span class="policy-tag">Rescheduling</span>
+                        <p>Rescheduling is allowed at least 48 hours before your appointment and will require a <span class="highlight-underline">₱200 rescheduling fee</span>. You may only reschedule once. This is due to the difficulty of getting your original slot filled.</p>
+                    </div>
+                </div>
+
+                <div class="policy-row">
+                    <div class="policy-section">
+                        <span class="policy-tag">Cancellation</span>
+                        <p><span class="highlight-underline">STRICTLY NO CANCELLATION!</span> Cancellations with or without notice for any reason will forfeit the deposit and is required to settle a <span class="highlight-underline">₱500 fee</span>.</p>
+                    </div>
+                </div>
+
+                <div class="policy-row">
+                    <div class="policy-section">
+                        <span class="policy-tag">Home Service</span>
+                        <div class="policy-bullet">The client must pay the transportation fee back and forth (Angkas rate) + <span class="highlight-underline">₱300</span> home service fee per head, with minimum of 2–3 clients.</div>
+                        <div class="policy-bullet">If solo, home service fee costs <span class="highlight-underline">₱350–₱400</span> depending on the location.</div>
+                    </div>
+                </div>
+
+                <div class="policy-row">
+                    <div class="policy-section">
+                        <span class="policy-tag">Procedure</span>
+                        <div class="policy-bullet">The procedure takes upon <span class="highlight-underline">2–4 hours</span> depending on the design.</div>
+                        <div class="policy-bullet"><span class="highlight-underline">5 days warranty</span>. For any issues resulting from our nail artist's work. If you experience any problems within this period. Please contact us to arrange a resolution.</div>
+                    </div>
+                </div>
+
+                <div class="policy-row">
+                    <div class="policy-section">
+                        <span class="policy-tag">Safety</span>
+                        <div class="policy-bullet">No companions allowed.</div>
+                        <div class="policy-bullet">I will not be accepting who are not feeling well and/or have finger infections/injuries.</div>
+                        <div class="policy-bullet">Kindly wear a face mask, if you are experiencing cold or cough symptoms.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-pill">nailsby.joyyy</div>
+        </div>
+    </main>
+
+    <script>
+        // Dismiss intro animation after 2 seconds
+        window.addEventListener('load', () => {
+            const intro = document.getElementById('introOverlay');
+            setTimeout(() => {
+                if (intro) {
+                    intro.classList.add('hide');
+                }
+            }, 2000);
+        });
+
+        // Opens the Google Form in a popup window
+        function openFormPopup() {
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfi3yc2SjxW4avX0KEG05gCc7Qm8i3ABq9QHa5CF0OogXIJiw/viewform";
+            const width = 640;
+            const height = 800;
+            const left = window.screen.width / 2 - width / 2;
+            const top = window.screen.height / 2 - height / 2;
+
+            window.open(
+                formUrl,
+                "GoogleFormPopup",
+                `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+            );
+        }
+
+        // Toggle mobile navigation
+        function toggleMenu() {
+            const toggle = document.querySelector('.one');
+            const navigation = document.querySelector('header ul.navigation');
+            toggle.classList.toggle('active');
+            navigation.classList.toggle('active');
+
+            document.body.style.overflow = navigation.classList.contains('active')
+                ? 'hidden'
+                : '';
+        }
+
+        // Persistent active navigation underline
+        document.addEventListener("DOMContentLoaded", () => {
+            const navLinks = document.querySelectorAll("header ul.navigation li a");
+            const currentPath = window.location.pathname;
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute("href");
+                if (href && (currentPath.includes(href) || window.location.href === link.href)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
