@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nails by Joy</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+
+    <script src="https://kit.fontawesome.com/5d7cbd0185.js" crossorigin="anonymous"></script>
+    <script src="one.js"></script>
+</head>
+
+<body>
+
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-content">
+            <img src="logo.png" class="intro-logo-img" alt="Nails by Joy Logo">
+            <h1 class="intro-title">Nails by Joy</h1>
+            <p class="intro-subtitle">Elegance at Your Fingertips</p>
+        </div>
+    </div>
+
+    <header>
+        <a href="/WEBSITE/prujik/HOME/index.html">
+            <img src="logo.png" class="logo" alt="Nails by Joy Logo">
+        </a>
+
+        <a href="/WEBSITE/prujik/HOME/index.html">
+            <h1>Nails by Joy</h1>
+        </a>
+
+        <div class="one" onclick="toggleMenu();"></div>
+
+        <ul class="navigation">
+            <li><a href="/WEBSITE/prujik/HOME/index.html" class="active">Home</a></li>
+            <li><a href="/WEBSITE/prujik/PORTFOLIO/portfolio.html">Portfolio</a></li>
+            <li><a href="/WEBSITE/prujik/PRICELIST/Pricelist.html">Price List</a></li>
+            <li><a href="/WEBSITE/prujik/POLICIES/Policies.html">Policies</a></li>
+        
+            <li>
+                <button class="open-form-btn" onclick="openFormPopup()">Book Here</button>
+            </li>
+        </ul>
+    </header>
+
+    <main>
+        <section class="content-split">
+            <div class="glass-card">
+                <h2><u>ABOUT</u></h2>
+                <p>A nail care studio offering bespoke manicure and pedicure services with a focus on hygiene, precision, and artistry. Every set is tailored to personal aesthetics—merging restorative hand & foot wellness with clean, editorial-grade designs.</p>
+
+                <!-- Social Media Icons -->
+    <div class="social-links">
+        <span class="connect-text">Let’s connect, get in touch ! →</span>
+        <a href="https://www.facebook.com/p/Nails-by-Joy-61584045361678/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/nailsby.joyyy" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+    </div>
+            </div>
+
+            <div class="glass-card">
+                <h2><u>SERVICES</u></h2>
+                
+                <div class="service-row">
+                    <div class="service-details">
+                        <h4><strong>Manicure</strong></h4>
+                        <p>Give your hands the care they deserve! Our manicure service includes nail cleaning, shaping, cuticle care, and a polished finish to leave your nails looking neat, clean, and beautiful.</p>
+                    </div>
+                </div>
+
+                <div class="service-row">
+                    <div class="service-details">
+                        <h4><strong>Pedicure</strong></h4>
+                        <p>Relax and refresh your feet with our pedicure service. We provide nail cleaning, shaping, cuticle care, and a polished finish for clean, well-groomed, and beautiful toes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="image-gallery">
+            <div class="gallery-col">
+                <img src="img/nail1.jfif" alt="Nail set 1">
+            </div>
+            <div class="gallery-col">
+                <img src="img/nail2.jfif" alt="Nail set 2">
+            </div>
+            <div class="gallery-col">
+                <img src="img/nail3.jfif" alt="Nail set 3">
+            </div>
+            <div class="gallery-col">
+                <img src="img/nail4.jfif" alt="Nail set 4">
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Dismiss intro animation after 2 seconds
+        window.addEventListener('load', () => {
+            const intro = document.getElementById('introOverlay');
+            setTimeout(() => {
+                if (intro) {
+                    intro.classList.add('hide');
+                }
+            }, 2000);
+        });
+
+        // Opens the Google Form in a popup window
+        function openFormPopup() {
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfi3yc2SjxW4avX0KEG05gCc7Qm8i3ABq9QHa5CF0OogXIJiw/viewform";
+            const width = 640;
+            const height = 800;
+            const left = window.screen.width / 2 - width / 2;
+            const top = window.screen.height / 2 - height / 2;
+
+            window.open(
+                formUrl,
+                "GoogleFormPopup",
+                `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+            );
+        }
+
+        // Toggle mobile navigation
+        function toggleMenu() {
+            const toggle = document.querySelector('.one');
+            const navigation = document.querySelector('header ul.navigation');
+            toggle.classList.toggle('active');
+            navigation.classList.toggle('active');
+
+            // FIX: lock the body scroll while the fullscreen mobile
+            // menu is open, so the page can't scroll behind it
+            document.body.style.overflow = navigation.classList.contains('active')
+                ? 'hidden'
+                : '';
+        }
+
+        // Persistent active navigation underline
+        document.addEventListener("DOMContentLoaded", () => {
+            const navLinks = document.querySelectorAll("header ul.navigation li a");
+            const currentPath = window.location.pathname;
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute("href");
+                if (href && (currentPath.includes(href) || window.location.href === link.href)) {
+                    link.classList.add("active");
+                } else if (
+                    (currentPath === "/" || currentPath.endsWith("index.html")) &&
+                    link.textContent.trim().toLowerCase() === "home"
+                ) {
+                    link.classList.add("active");
+                }
+
+                link.addEventListener("click", () => {
+                    navLinks.forEach(item => item.classList.remove("active"));
+                    link.classList.add("active");
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
