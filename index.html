@@ -17,15 +17,23 @@
 
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-content">
-            <img src="LOGO1.png" class="intro-logo-img" alt="Nails by Joy Logo">
+            <!-- Glass-textured circular logo -->
+            <div class="glass-circle-wrapper intro-wrapper">
+                <img src="LOGO1.png" class="intro-logo-img" alt="Nails by Joy Logo">
+                <div class="glass-glaze"></div>
+            </div>
             <h1 class="intro-title">Nails by Joy</h1>
             <p class="intro-subtitle">Elegance at Your Fingertips</p>
         </div>
     </div>
 
     <header>
-        <a href="index.html">
-            <img src="LOGO1.png" class="logo" alt="Nails by Joy Logo">
+        <!-- Glass-textured circular logo in navbar -->
+        <a href="index.html" class="logo-link">
+            <div class="glass-circle-wrapper header-wrapper">
+                <img src="LOGO1.png" class="logo" alt="Nails by Joy Logo">
+                <div class="glass-glaze"></div>
+            </div>
         </a>
 
         <a href="index.html">
@@ -39,7 +47,6 @@
             <li><a href="portfolio/portfolio.html">Portfolio</a></li>
             <li><a href="pricelist/pricelist.html">Price List</a></li>
             <li><a href="policies/policies.html">Policies</a></li>
-        
             <li>
                 <button class="open-form-btn" onclick="openFormPopup()">Book Here</button>
             </li>
@@ -53,15 +60,15 @@
                 <p>A nail tech studio dedicated to creating stylish, creative, and aesthetic nail designs tailored to every client’s preferences. Each service focuses on quality, attention to detail, and making every set uniquely yours.</p>
 
                 <!-- Social Media Icons -->
-    <div class="social-links">
-        <span class="connect-text">Let’s connect, get in touch ! →</span>
-        <a href="https://www.facebook.com/p/Nails-by-Joy-61584045361678/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <i class="fa-brands fa-facebook-f"></i>
-        </a>
-        <a href="https://www.instagram.com/nailsby.joyyy" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-        </a>
-    </div>
+                <div class="social-links">
+                    <span class="connect-text">Let’s connect, get in touch ! →</span>
+                    <a href="https://www.facebook.com/p/Nails-by-Joy-61584045361678/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/nailsby.joyyy" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
             </div>
 
             <div class="glass-card">
@@ -132,8 +139,7 @@
             toggle.classList.toggle('active');
             navigation.classList.toggle('active');
 
-            // FIX: lock the body scroll while the fullscreen mobile
-            // menu is open, so the page can't scroll behind it
+            // Lock body scroll during full-screen mobile menu
             document.body.style.overflow = navigation.classList.contains('active')
                 ? 'hidden'
                 : '';
