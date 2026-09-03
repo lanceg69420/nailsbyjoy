@@ -17,7 +17,6 @@
 
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-content">
-            <!-- Glass-textured circular logo -->
             <div class="glass-circle-wrapper intro-wrapper">
                 <img src="LOGO1.png" class="intro-logo-img" alt="Nails by Joy Logo">
                 <div class="glass-glaze"></div>
@@ -28,7 +27,6 @@
     </div>
 
     <header>
-        <!-- Glass-textured circular logo in navbar -->
         <a href="index.html" class="logo-link">
             <div class="glass-circle-wrapper header-wrapper">
                 <img src="LOGO1.png" class="logo" alt="Nails by Joy Logo">
@@ -59,7 +57,6 @@
                 <h2><u>ABOUT</u></h2>
                 <p>A nail tech studio dedicated to creating stylish, creative, and aesthetic nail designs tailored to every client’s preferences. Each service focuses on quality, attention to detail, and making every set uniquely yours.</p>
 
-                <!-- Social Media Icons -->
                 <div class="social-links">
                     <span class="connect-text">Let’s connect, get in touch ! →</span>
                     <a href="https://www.facebook.com/p/Nails-by-Joy-61584045361678/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
@@ -90,18 +87,31 @@
             </div>
         </section>
 
+        <!-- Full Circular Glass Gallery -->
         <section class="image-gallery">
             <div class="gallery-col">
-                <img src="/home/img/nail1.jfif" alt="Nail set 1">
+                <div class="glass-circle-wrapper gallery-wrapper">
+                    <img src="/home/img/nail1.jfif" alt="Nail set 1">
+                    <div class="glass-glaze"></div>
+                </div>
             </div>
             <div class="gallery-col">
-                <img src="/home/img/nail2.jfif" alt="Nail set 2">
+                <div class="glass-circle-wrapper gallery-wrapper">
+                    <img src="/home/img/nail2.jfif" alt="Nail set 2">
+                    <div class="glass-glaze"></div>
+                </div>
             </div>
             <div class="gallery-col">
-                <img src="/home/img/nail3.jfif" alt="Nail set 3">
+                <div class="glass-circle-wrapper gallery-wrapper">
+                    <img src="/home/img/nail3.jfif" alt="Nail set 3">
+                    <div class="glass-glaze"></div>
+                </div>
             </div>
             <div class="gallery-col">
-                <img src="/home/img/nail4.jfif" alt="Nail set 4">
+                <div class="glass-circle-wrapper gallery-wrapper">
+                    <img src="/home/img/nail4.jfif" alt="Nail set 4">
+                    <div class="glass-glaze"></div>
+                </div>
             </div>
         </section>
     </main>
@@ -139,7 +149,6 @@
             toggle.classList.toggle('active');
             navigation.classList.toggle('active');
 
-            // Lock body scroll during full-screen mobile menu
             document.body.style.overflow = navigation.classList.contains('active')
                 ? 'hidden'
                 : '';
