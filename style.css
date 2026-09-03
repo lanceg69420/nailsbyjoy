@@ -46,7 +46,7 @@ body {
 }
 
 /* =====================================================
-   GLASS CIRCLE WRAPPER & SPECULAR OVERLAY
+   GLASS CIRCLE CORE UTILITY & TEXTURE
 ===================================================== */
 .glass-circle-wrapper {
     position: relative;
@@ -56,16 +56,17 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    aspect-ratio: 1 / 1;
     
-    /* Convex glass rim reflection & drop shadow */
+    /* 3D Convex glass rim reflection & drop shadow */
     border: 1.5px solid rgba(255, 255, 255, 0.85);
     box-shadow: 
         0 14px 28px rgba(60, 50, 45, 0.2),
-        inset 0 1.5px 3px rgba(255, 255, 255, 0.95),
-        inset 0 -2px 3px rgba(0, 0, 0, 0.1);
+        inset 0 2px 3.5px rgba(255, 255, 255, 0.95),
+        inset 0 -2px 3px rgba(0, 0, 0, 0.12);
 }
 
-/* Diagonal glass light reflection and subtle frost glaze */
+/* Optical glass light refraction and reflection glaze */
 .glass-glaze {
     position: absolute;
     inset: 0;
@@ -73,12 +74,11 @@ body {
     pointer-events: none;
     z-index: 2;
 
-    /* Specular hotspot at top-left with dual diagonal refractions */
+    /* Specular hotspot on top-left + angled frosted sheen */
     background: 
         radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.12) 42%, transparent 68%),
         linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(0, 0, 0, 0.08) 100%);
     
-    /* Internal glass refraction */
     box-shadow: 
         inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
         inset 0 -1.5px 3px rgba(0, 0, 0, 0.12);
@@ -178,7 +178,6 @@ body {
     }
 }
 
-/* Reveal underlying page content */
 header {
     animation: headerReveal 0.8s ease-out 2s both;
 }
@@ -231,7 +230,6 @@ header::before {
     z-index: -1;
 }
 
-/* Anchor container for logo */
 header > a.logo-link {
     display: inline-flex;
     align-items: center;
@@ -255,7 +253,6 @@ header .logo {
     display: block;
 }
 
-/* Hover glass highlight on nav logo */
 header > a.logo-link:hover .glass-circle-wrapper.header-wrapper {
     transform: translateY(-1.5px) scale(1.04);
     box-shadow: 
@@ -494,43 +491,69 @@ main {
 }   
 
 /* =====================================================
-   IMAGE GALLERY
+   IMAGE GALLERY (CIRCULAR GLASS SPHERES)
 ===================================================== */
 .image-gallery {
     width: 100%;
     margin: 0 auto 60px auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    border-radius: 32px;
-    overflow: hidden;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 20px 40px var(--glass-shadow);
+    gap: 24px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .gallery-col {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background-color: #d6ceca;
-    border-right: 1px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
 }
 
 .gallery-col:last-child {
-    border-right: none;
+    border: none;
+}
+
+/* 1:1 Aspect ratio circle wrapper for each image */
+.glass-circle-wrapper.gallery-wrapper {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 18px 36px var(--glass-shadow),
+        inset 0 2px 4px rgba(255, 255, 255, 0.95),
+        inset 0 -2.5px 4px rgba(0, 0, 0, 0.12);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
 .gallery-col img {
     width: 100%;
     height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
     object-fit: cover;
     display: block;
     filter: brightness(0.98) contrast(1.02);
     transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.gallery-col:hover img {
-    transform: scale(1.04);
-    filter: brightness(1.02);
+.glass-circle-wrapper.gallery-wrapper:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 
+        0 24px 44px rgba(60, 50, 45, 0.22),
+        inset 0 2px 4px rgba(255, 255, 255, 1);
+}
+
+.glass-circle-wrapper.gallery-wrapper:hover img {
+    transform: scale(1.08);
+    filter: brightness(1.03);
 }
 
 /* =====================================================
@@ -634,20 +657,16 @@ main {
 
     .image-gallery {
         grid-template-columns: repeat(2, 1fr);
-        border-radius: 24px;
+        gap: 20px;
     }
 
     .gallery-col {
-        border-right: none;
-        border-bottom: none;
+        border-right: none !important;
+        border-bottom: none !important;
     }
 
-    .gallery-col:nth-child(odd) {
-        border-right: 1px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .gallery-col:nth-child(-n+2) {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    .glass-circle-wrapper.gallery-wrapper {
+        max-width: 240px;
     }
 }
 
@@ -658,14 +677,14 @@ main {
 
     .image-gallery {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .gallery-col {
-        border-right: none !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        border-bottom: none !important;
     }
 
-    .gallery-col:last-child {
-        border-bottom: none;
+    .glass-circle-wrapper.gallery-wrapper {
+        max-width: 260px;
     }
 }
