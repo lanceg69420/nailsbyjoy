@@ -93,10 +93,10 @@
                 }))
             ],
             mani2026: Array.from({ length: 74 }, (_, i) => ({
-                img: `/portfolio/images/drive-download-20260904T185230Z-1-001/${i + 1}.PNG`,
+                img: `/portfolio/images/(2025) manicure-20260901T092130Z-1-001/(2025) manicure/${i + 1}.PNG`,
                 title: ""
             })),
-            pedi2026: Array.from({ length: 7 }, (_, i) => ({
+            pedi2026: Array.from({ length: 4 }, (_, i) => ({
                 img: `/portfolio/images/(2026) pedicure-20260901T123702Z-1-001/(2026) pedicure/${i + 1}.PNG`,
                 title: ""
             }))
@@ -104,26 +104,43 @@
 
         let swiper = null;
 
-        function initSwiper(itemCount) {
+        function initSwiper(items) {
             if (swiper) {
                 swiper.destroy(true, true);
             }
-
-            // Loop creates excessive cloned elements when item count is high; keep loop off for large batches to avoid browser crashes
-            const enableLoop = itemCount < 40;
 
             swiper = new Swiper('.arigato-slider', {
                 effect: 'coverflow',
                 grabCursor: true,
                 centeredSlides: true,
-                loop: enableLoop,
+                loop: true,
                 slidesPerView: 'auto',
+                speed: 600, // Smooth transition duration
                 coverflowEffect: {
                     rotate: 0,
                     stretch: 0,
                     depth: 100,
                     modifier: 2.5,
-                    slideShadows: false // Disabled to minimize GPU memory consumption
+                    slideShadows: false // Eliminates GPU paint overhead
+                },
+                // Virtual Slides: dynamically renders only immediate visible slides
+                virtual: {
+                    slides: items,
+                    renderSlide: function (item, index) {
+                        return `
+                            <div class="swiper-slide arigato-slide" data-swiper-slide-index="${index}">
+                                <div class="arigato-weee-img">
+                                    <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async">
+                                </div>
+                                <div class="arigato-kontint-gosaymas">
+                                    <h1 class="number">${index + 1}</h1>
+                                    <div class="arigato-kontint-gosaymas-bottom">
+                                        <h2 class="pangalan">${item.title}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
                 },
                 pagination: {
                     el: '.swiper-pagination',
@@ -143,25 +160,8 @@
                 tabElement.classList.add('active');
             }
 
-            const wrapper = document.getElementById('swiperWrapper');
             const items = photoData[category] || photoData.mani2025;
-
-            // Added loading="lazy" and decoding="async" to prevent UI thread lock
-            wrapper.innerHTML = items.map((item, index) => `
-                <div class="swiper-slide arigato-slide">
-                    <div class="arigato-weee-img">
-                        <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async">
-                    </div>
-                    <div class="arigato-kontint-gosaymas">
-                        <h1 class="number">${index + 1}</h1>
-                        <div class="arigato-kontint-gosaymas-bottom">
-                            <h2 class="pangalan">${item.title}</h2>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            initSwiper(items.length);
+            initSwiper(items);
         }
 
         // Load Manicure (2025) photos on initial load
