@@ -76,28 +76,35 @@ body {
     flex-direction: column;
     align-items: center;
     animation: introFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    padding: 0 20px;
 }
 
-.intro-logo-img {
-    width: 110px;
-    height: 110px;
-    object-fit: cover;
+.logo-frame {
     border-radius: 50%;
+    overflow: hidden;
+    display: block;
+}
+
+.intro-logo-frame {
+    width: clamp(80px, 20vw, 110px);
+    height: clamp(80px, 20vw, 110px);
+    aspect-ratio: 1 / 1;
     margin-bottom: 20px;
-   background: radial-gradient(circle at 10% 10%, rgba(54, 53, 53, 0.219), transparent),
-                linear-gradient(160deg, rgba(107, 105, 105, 0.034) 0%, transparent);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    box-shadow: 0 10px 30px rgba(60, 50, 45, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    transform: scale(1);
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
                 opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.intro-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.42);
+    display: block;
+}
+
 .intro-title {
     font-family: var(--font-secondary);
-    font-size: 34px;
+    font-size: clamp(24px, 6vw, 34px);
     font-weight: 700;
     color: var(--accent-dark);
     letter-spacing: -0.5px;
@@ -115,13 +122,14 @@ body {
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+/* Exit State */
 .intro-overlay.hide {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 }
 
-.intro-overlay.hide .intro-logo-img {
+.intro-overlay.hide .intro-logo-frame {
     transform: scale(0.2);
     opacity: 0;
 }
@@ -143,8 +151,13 @@ body {
     }
 }
 
+/* Reveal underlying page content */
 header {
     animation: headerReveal 0.8s ease-out 2s both;
+}
+
+main {
+    animation: pageReveal 0.8s ease-out 2s both;
 }
 
 @keyframes headerReveal {
@@ -152,8 +165,19 @@ header {
     100% { opacity: 1; }
 }
 
+@keyframes pageReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* =====================================================
-   HEADER & NAVBAR
+   HEADER
 ===================================================== */
 header {
     position: sticky;
@@ -173,6 +197,7 @@ header::before {
     background-color: rgba(255, 255, 255, 0.671);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
+    
     box-shadow: 
         0 20px 40px var(--glass-shadow),
         inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
@@ -181,24 +206,24 @@ header::before {
     z-index: -1;
 }
 
-header .logo {
+.header-logo-frame {
     width: 48px;
     height: 48px;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+}
+
+header .logo {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 50%;
-    background: radial-gradient(circle at 10% 10%, rgba(54, 53, 53, 0.219), transparent),
-                linear-gradient(160deg, rgba(107, 105, 105, 0.034) 0%, transparent);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    box-shadow: 
-        0 20px 40px var(--glass-shadow),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
-        inset 0 -1.5px 2px rgba(0, 0, 0, 0.03);
-    border: 1px solid var(--glass-border);
+    transform: scale(1.42);
+    display: block;
 }
 
 header > a:nth-of-type(2) {
     text-decoration: none;
+    min-width: 0;
 }
 
 header a h1 {
@@ -208,6 +233,9 @@ header a h1 {
     font-weight: 600;
     color: var(--accent-btn);
     letter-spacing: -0.4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 header ul.navigation {
@@ -270,6 +298,7 @@ header ul.navigation li a.active {
     border-radius: 100px;
     cursor: pointer;
     transition: all 0.25s ease;
+    white-space: nowrap;
 }
 
 .open-form-btn:hover {
@@ -356,8 +385,10 @@ header ul.navigation li a.active {
 }
 
 .arigato-slide {
-    width: 20rem;
-    height: 26rem;
+    /* Fluid sizing: scales smoothly across all screen widths
+       instead of snapping at a single breakpoint */
+    width: clamp(14rem, 60vw, 20rem);
+    height: clamp(19rem, 78vw, 26rem);
     position: relative;
     border-radius: 1.5rem;
     overflow: hidden;
@@ -493,15 +524,21 @@ header ul.navigation li a.active {
     header {
         height: 80px;
         padding: 0 20px;
+        gap: 12px;
     }
 
     header ul.navigation {
         display: none;
     }
 
+    header a h1 {
+        margin-left: 12px;
+    }
+
     .one {
         display: block;
         margin-left: auto;
+        flex-shrink: 0;
         width: 24px;
         height: 16px;
         cursor: pointer;
@@ -570,9 +607,14 @@ header ul.navigation li a.active {
 }
 
 @media (max-width: 768px) {
+    .container {
+        margin-top: 30px;
+    }
+
     .top-content {
         height: auto;
         flex-wrap: wrap;
+        width: 94%;
     }
 
     .filter-tab {
@@ -581,17 +623,56 @@ header ul.navigation li a.active {
         text-align: center;
         font-size: 14px;
     }
-}
 
-@media (max-width: 500px) {
-    .arigato-slide {
-        width: 16rem !important;
-        height: 22rem !important;
+    #arigato {
+        margin-top: 20px;
+    }
+
+    .arigato-slider-control {
+        gap: 1rem !important;
+        margin: 2rem auto 0 auto !important;
     }
 }
 
 @media (max-width: 574px) {
     header a h1 {
         font-size: 18px;
+    }
+
+    .header-logo-frame {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 420px) {
+    .konteyner {
+        padding: 0 0.5rem;
+    }
+
+    .arigato-kontint-gosaymas .number {
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.4rem;
+    }
+
+    .arigato-kontint-gosaymas-bottom {
+        bottom: 1rem !important;
+        left: 1rem !important;
+    }
+
+    .arigato-slider-control .slider-arrow {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+    }
+
+    .arigato-slider-control .slider-dots {
+        font-size: 14px !important;
+    }
+
+    .open-form-btn {
+        padding: 8px 16px;
+        font-size: 13px;
     }
 }
