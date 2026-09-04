@@ -92,11 +92,11 @@
                     title: ""
                 }))
             ],
-            mani2026: Array.from({ length: 74 }, (_, i) => ({
-                img: `/portfolio/images/(2025) manicure-20260901T092130Z-1-001/(2025) manicure/${i + 1}.PNG`,
+            mani2026: Array.from({ length: 111 }, (_, i) => ({
+                img: `/portfolio/images/(2026) manicure-20260901T114234Z-1-001/(2026) manicure/${i + 1}.PNG`,
                 title: ""
             })),
-            pedi2026: Array.from({ length: 4 }, (_, i) => ({
+            pedi2026: Array.from({ length: 7 }, (_, i) => ({
                 img: `/portfolio/images/(2026) pedicure-20260901T123702Z-1-001/(2026) pedicure/${i + 1}.PNG`,
                 title: ""
             }))
@@ -104,7 +104,7 @@
 
         let swiper = null;
 
-        function initSwiper(items) {
+        function initSwiper() {
             if (swiper) {
                 swiper.destroy(true, true);
             }
@@ -114,33 +114,22 @@
                 grabCursor: true,
                 centeredSlides: true,
                 loop: true,
+                loopPreventsSlide: false,
+                loopedSlides: 4, // Prevents duplicating all 111 items in memory
                 slidesPerView: 'auto',
-                speed: 600, // Smooth transition duration
+                speed: 500,
+                preloadImages: false, // Prevents loading all images on start
+                lazy: {
+                    loadPrevNext: true,
+                    loadPrevNextAmount: 2,
+                    loadOnTransitionStart: true
+                },
                 coverflowEffect: {
                     rotate: 0,
                     stretch: 0,
                     depth: 100,
                     modifier: 2.5,
-                    slideShadows: false // Eliminates GPU paint overhead
-                },
-                // Virtual Slides: dynamically renders only immediate visible slides
-                virtual: {
-                    slides: items,
-                    renderSlide: function (item, index) {
-                        return `
-                            <div class="swiper-slide arigato-slide" data-swiper-slide-index="${index}">
-                                <div class="arigato-weee-img">
-                                    <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async">
-                                </div>
-                                <div class="arigato-kontint-gosaymas">
-                                    <h1 class="number">${index + 1}</h1>
-                                    <div class="arigato-kontint-gosaymas-bottom">
-                                        <h2 class="pangalan">${item.title}</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }
+                    slideShadows: false
                 },
                 pagination: {
                     el: '.swiper-pagination',
@@ -160,8 +149,26 @@
                 tabElement.classList.add('active');
             }
 
+            const wrapper = document.getElementById('swiperWrapper');
             const items = photoData[category] || photoData.mani2025;
-            initSwiper(items);
+
+            // Uses swiper-lazy attributes for safe background loading
+            wrapper.innerHTML = items.map((item, index) => `
+                <div class="swiper-slide arigato-slide">
+                    <div class="arigato-weee-img">
+                        <img data-src="${item.img}" class="swiper-lazy" alt="${item.title}">
+                        <div class="swiper-lazy-preloader"></div>
+                    </div>
+                    <div class="arigato-kontint-gosaymas">
+                        <h1 class="number">${index + 1}</h1>
+                        <div class="arigato-kontint-gosaymas-bottom">
+                            <h2 class="pangalan">${item.title}</h2>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            initSwiper();
         }
 
         // Load Manicure (2025) photos on initial load
@@ -207,10 +214,9 @@
                 : '';
         }
 
-        // Navigation active indicator (exact match)
+        // Navigation active indicator
         document.addEventListener("DOMContentLoaded", () => {
             const navLinks = document.querySelectorAll("header ul.navigation li a");
-            
             const currentUrl = new URL(window.location.href);
             const currentPath = currentUrl.pathname.replace(/\/$/, "").toLowerCase();
 
