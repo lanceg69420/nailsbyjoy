@@ -26,21 +26,21 @@
     </div>
 
     <header>
-        <a href="index.html">
+        <a href="/index.html">
              <div class="logo-frame header-logo-frame">
                 <img src="/LOGOO.png" class="logo" alt="Nails by Joy Logo">
             </div>
         </a>
 
-        <a href="index.html">
+        <a href="/index.html">
             <h1>Nails by Joy</h1>
         </a>
 
         <div class="one" onclick="toggleMenu();"></div>
 
         <ul class="navigation">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="/portfolio/portfolio.html">Portfolio</a></li>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/portfolio/portfolio.html" class="active">Portfolio</a></li>
             <li><a href="/pricelist/Pricelist.html">Price List</a></li>
             <li><a href="/policies/Policies.html">Policies</a></li>
 
@@ -84,7 +84,7 @@
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
     <script>
-        // Photo library categorized by filter
+// Photo library categorized by filter
         const photoData = {
             mani2025: [
                 { img: "/portfolio/images/(2025) manicure-20260901t092130z-1-001/(2025) manicure/1.jpg", title: "" },
@@ -203,26 +203,28 @@
                 : '';
         }
 
-        // Navigation active indicator
+        // Navigation active indicator (exact match)
         document.addEventListener("DOMContentLoaded", () => {
             const navLinks = document.querySelectorAll("header ul.navigation li a");
-            const currentPath = window.location.pathname;
+            
+            const currentUrl = new URL(window.location.href);
+            const currentPath = currentUrl.pathname.replace(/\/$/, "").toLowerCase();
 
             navLinks.forEach(link => {
                 const href = link.getAttribute("href");
-                if (href && (currentPath.includes(href) || window.location.href === link.href)) {
-                    link.classList.add("active");
-                } else if (
-                    (currentPath === "/" || currentPath.endsWith("index.html")) &&
-                    link.textContent.trim().toLowerCase() === "home"
-                ) {
-                    link.classList.add("active");
-                }
+                if (!href) return;
 
-                link.addEventListener("click", () => {
-                    navLinks.forEach(item => item.classList.remove("active"));
+                const linkUrl = new URL(href, window.location.origin);
+                const linkPath = linkUrl.pathname.replace(/\/$/, "").toLowerCase();
+
+                const isMatch = (currentPath === linkPath) || 
+                                (linkPath.endsWith("index.html") && (currentPath === "" || currentPath === "/"));
+
+                if (isMatch) {
                     link.classList.add("active");
-                });
+                } else {
+                    link.classList.remove("active");
+                }
             });
         });
     </script>
