@@ -118,7 +118,7 @@
         </div>
     </main>
 
-    <script>
+   <script>
         // Dismiss intro animation after 2 seconds
         window.addEventListener('load', () => {
             const intro = document.getElementById('introOverlay');
@@ -136,7 +136,6 @@
             const height = 800;
             const left = window.screen.width / 2 - width / 2;
             const top = window.screen.height / 2 - height / 2;
-
             window.open(
                 formUrl,
                 "GoogleFormPopup",
@@ -150,24 +149,10 @@
             const navigation = document.querySelector('header ul.navigation');
             toggle.classList.toggle('active');
             navigation.classList.toggle('active');
-
             document.body.style.overflow = navigation.classList.contains('active')
                 ? 'hidden'
                 : '';
         }
-
-        // Persistent active navigation underline
-        document.addEventListener("DOMContentLoaded", () => {
-            const navLinks = document.querySelectorAll("header ul.navigation li a");
-            const currentPath = window.location.pathname;
-
-            navLinks.forEach(link => {
-                const href = link.getAttribute("href");
-                if (href && (currentPath.includes(href) || window.location.href === link.href)) {
-                    link.classList.add("active");
-                }
-            });
-        });
     </script>
 
 </body>
