@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="/LOGOO.ong" type="image/x-icon">
+    <link rel="shortcut icon" href="/LOGOO.png" type="image/x-icon">
     <script src="one.js"></script>
     <script src="https://kit.fontawesome.com/5d7cbd0185.js" crossorigin="anonymous"></script>
 </head>
@@ -17,7 +17,7 @@
 
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-content">
-                       <div class="logo-frame intro-logo-frame">
+            <div class="logo-frame intro-logo-frame">
                 <img src="/LOGOO.png" class="intro-logo-img" alt="Nails by Joy Logo">
             </div>
             <h1 class="intro-title">Nails by Joy</h1>
@@ -27,7 +27,7 @@
 
     <header>
         <a href="/index.html">
-             <div class="logo-frame header-logo-frame">
+            <div class="logo-frame header-logo-frame">
                 <img src="/LOGOO.png" class="logo" alt="Nails by Joy Logo">
             </div>
         </a>
@@ -61,8 +61,7 @@
     <section id="arigato">
         <div class="konteyner">
             <div class="swiper arigato-slider">
-                <div class="swiper-wrapper" id="swiperWrapper">
-                    </div>
+                <div class="swiper-wrapper" id="swiperWrapper"></div>
 
                 <div class="arigato-slider-control">
                     <div class="slider-arrow slider-prev-btn">
@@ -84,7 +83,7 @@
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
     <script>
-// Photo library categorized by filter
+        // Photo library categorized by filter
         const photoData = {
             mani2025: [
                 { img: "/portfolio/images/(2025) manicure-20260901t092130z-1-001/(2025) manicure/1.jpg", title: "" },
@@ -105,22 +104,26 @@
 
         let swiper = null;
 
-        function initSwiper() {
+        function initSwiper(itemCount) {
             if (swiper) {
                 swiper.destroy(true, true);
             }
+
+            // Loop creates excessive cloned elements when item count is high; keep loop off for large batches to avoid browser crashes
+            const enableLoop = itemCount < 40;
 
             swiper = new Swiper('.arigato-slider', {
                 effect: 'coverflow',
                 grabCursor: true,
                 centeredSlides: true,
-                loop: true,
+                loop: enableLoop,
                 slidesPerView: 'auto',
                 coverflowEffect: {
                     rotate: 0,
                     stretch: 0,
                     depth: 100,
                     modifier: 2.5,
+                    slideShadows: false // Disabled to minimize GPU memory consumption
                 },
                 pagination: {
                     el: '.swiper-pagination',
@@ -143,10 +146,11 @@
             const wrapper = document.getElementById('swiperWrapper');
             const items = photoData[category] || photoData.mani2025;
 
+            // Added loading="lazy" and decoding="async" to prevent UI thread lock
             wrapper.innerHTML = items.map((item, index) => `
                 <div class="swiper-slide arigato-slide">
                     <div class="arigato-weee-img">
-                        <img src="${item.img}" alt="${item.title}">
+                        <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async">
                     </div>
                     <div class="arigato-kontint-gosaymas">
                         <h1 class="number">${index + 1}</h1>
@@ -157,7 +161,7 @@
                 </div>
             `).join('');
 
-            initSwiper();
+            initSwiper(items.length);
         }
 
         // Load Manicure (2025) photos on initial load
