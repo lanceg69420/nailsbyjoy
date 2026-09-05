@@ -93,91 +93,139 @@
                 }))
             ],
             mani2026: Array.from({ length: 74 }, (_, i) => ({
-                img: `/portfolio/images/(2025) manicure-20260901T092130Z-1-001/(2025) manicure/${i + 1}.PNG`,
+                img: `/portfolio/images/(2026) manicure-20260901T114234Z-1-001/(2026) manicure/${i + 1}.PNG`,
                 title: ""
             })),
-            pedi2026: Array.from({ length: 4 }, (_, i) => ({
+            pedi2026: Array.from({ length: 7 }, (_, i) => ({
                 img: `/portfolio/images/(2026) pedicure-20260901T123702Z-1-001/(2026) pedicure/${i + 1}.PNG`,
                 title: ""
             }))
         };
 
         let swiper = null;
+        let activeList = [];
+        let curIndex = 0;
+        const WINDOW_SIZE = 4; // Keeps 9 active slides in DOM (prevents GPU memory exhaustion & crash)
 
-        function initSwiper() {
+        function renderSlideHtml(dataIndex) {
+            const item = activeList[dataIndex];
+            return `
+                <div class="swiper-slide arigato-slide" data-real-index="${dataIndex}">
+                    <div class="arigato-weee-img">
+                        <img src="${item.img}" alt="${item.title}">
+                    </div>
+                    <div class="arigato-kontint-gosaymas">
+                        <h1 class="number">${dataIndex + 1}</h1>
+                        <div class="arigato-kontint-gosaymas-bottom">
+                            <h2 class="pangalan">${item.title}</h2>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function buildWindowHtml(centerIdx) {
+            const total = activeList.length;
+            let html = '';
+            for (let offset = -WINDOW_SIZE; offset <= WINDOW_SIZE; offset++) {
+                const actualIdx = (centerIdx + offset + total * 10) % total;
+                html += renderSlideHtml(actualIdx);
+            }
+            return html;
+        }
+
+        function updatePagination() {
+            const paginationEl = document.querySelector('.swiper-pagination');
+            if (paginationEl && activeList.length > 0) {
+                paginationEl.innerHTML = `<span class="swiper-pagination-current">${curIndex + 1}</span> / <span class="swiper-pagination-total">${activeList.length}</span>`;
+            }
+        }
+
+        function initWindowedSwiper(items) {
+            activeList = items;
+            curIndex = 0;
+
             if (swiper) {
                 swiper.destroy(true, true);
             }
+
+            const wrapper = document.getElementById('swiperWrapper');
+            wrapper.innerHTML = buildWindowHtml(curIndex);
 
             swiper = new Swiper('.arigato-slider', {
                 effect: 'coverflow',
                 grabCursor: true,
                 centeredSlides: true,
-                loop: true,
-                loopPreventsSlide: false,
-                loopedSlides: 4, // Prevents duplicating all 111 items in memory
+                initialSlide: WINDOW_SIZE,
                 slidesPerView: 'auto',
-                speed: 500,
-                preloadImages: false, // Prevents loading all images on start
-                lazy: {
-                    loadPrevNext: true,
-                    loadPrevNextAmount: 2,
-                    loadOnTransitionStart: true
-                },
+                speed: 400,
                 coverflowEffect: {
                     rotate: 0,
                     stretch: 0,
                     depth: 100,
                     modifier: 2.5,
                     slideShadows: false
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    type: 'fraction',
-                },
-                navigation: {
-                    nextEl: '.slider-next-btn',
-                    prevEl: '.slider-prev-btn',
+                }
+            });
+
+            updatePagination();
+
+            const nextBtn = document.querySelector('.slider-next-btn');
+            const prevBtn = document.querySelector('.slider-prev-btn');
+
+            let isBusy = false;
+
+            const shiftSlide = (direction) => {
+                if (isBusy) return;
+                isBusy = true;
+
+                const targetSlide = direction === 'next' ? WINDOW_SIZE + 1 : WINDOW_SIZE - 1;
+
+                swiper.slideTo(targetSlide, 350, true);
+
+                setTimeout(() => {
+                    if (direction === 'next') {
+                        curIndex = (curIndex + 1) % activeList.length;
+                    } else {
+                        curIndex = (curIndex - 1 + activeList.length) % activeList.length;
+                    }
+
+                    wrapper.innerHTML = buildWindowHtml(curIndex);
+                    swiper.update();
+                    swiper.slideTo(WINDOW_SIZE, 0, false);
+                    updatePagination();
+                    isBusy = false;
+                }, 360);
+            };
+
+            nextBtn.onclick = () => shiftSlide('next');
+            prevBtn.onclick = () => shiftSlide('prev');
+
+            swiper.on('slideChange', () => {
+                if (isBusy) return;
+                if (swiper.activeIndex > WINDOW_SIZE) {
+                    shiftSlide('next');
+                } else if (swiper.activeIndex < WINDOW_SIZE) {
+                    shiftSlide('prev');
                 }
             });
         }
 
-        // Switch slides and re-sync Swiper when tab clicked
         function filterGallery(category, tabElement) {
             document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
             if (tabElement) {
                 tabElement.classList.add('active');
             }
 
-            const wrapper = document.getElementById('swiperWrapper');
             const items = photoData[category] || photoData.mani2025;
-
-            // Uses swiper-lazy attributes for safe background loading
-            wrapper.innerHTML = items.map((item, index) => `
-                <div class="swiper-slide arigato-slide">
-                    <div class="arigato-weee-img">
-                        <img data-src="${item.img}" class="swiper-lazy" alt="${item.title}">
-                        <div class="swiper-lazy-preloader"></div>
-                    </div>
-                    <div class="arigato-kontint-gosaymas">
-                        <h1 class="number">${index + 1}</h1>
-                        <div class="arigato-kontint-gosaymas-bottom">
-                            <h2 class="pangalan">${item.title}</h2>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            initSwiper();
+            initWindowedSwiper(items);
         }
 
-        // Load Manicure (2025) photos on initial load
         window.addEventListener('DOMContentLoaded', () => {
             const defaultTab = document.querySelector('.filter-tab');
             filterGallery('mani2025', defaultTab);
         });
 
-        // Dismiss intro animation after 2 seconds
         window.addEventListener('load', () => {
             const intro = document.getElementById('introOverlay');
             setTimeout(() => {
@@ -187,7 +235,6 @@
             }, 2000);
         });
 
-        // Booking popup
         function openFormPopup() {
             const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfi3yc2SjxW4avX0KEG05gCc7Qm8i3ABq9QHa5CF0OogXIJiw/viewform";
             const width = 640;
@@ -202,7 +249,6 @@
             );
         }
 
-        // Toggle mobile navigation
         function toggleMenu() {
             const toggle = document.querySelector('.one');
             const navigation = document.querySelector('header ul.navigation');
@@ -214,7 +260,6 @@
                 : '';
         }
 
-        // Navigation active indicator
         document.addEventListener("DOMContentLoaded", () => {
             const navLinks = document.querySelectorAll("header ul.navigation li a");
             const currentUrl = new URL(window.location.href);
