@@ -16,7 +16,7 @@
     --glass-bg: rgba(245, 243, 240, 0.45);
     --glass-border: rgba(255, 255, 255, 0.7);
     --glass-shadow: rgba(60, 50, 45, 0.08);
-    --alt1:  rgba(255, 255, 255, 0.671);
+    --alt1: rgba(255, 255, 255, 0.671);
     --alt2: #754B4D;
 
     /* Liquid Glassmorphic Card Accents */
@@ -69,7 +69,6 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 99999;
-    
     opacity: 1;
     visibility: visible;
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
@@ -202,7 +201,6 @@ header::before {
     background-color: rgba(255, 255, 255, 0.671);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    
     box-shadow: 
         0 20px 40px var(--glass-shadow),
         inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
@@ -237,6 +235,7 @@ header a h1 {
     color: var(--accent-btn);
     letter-spacing: -0.4px;
 }
+
 /* =====================================================
    NAVIGATION
 ===================================================== */
@@ -292,8 +291,7 @@ header ul.navigation li a.active {
     font-size: 14px;
     font-weight: 600;
     color: var(--text-main);
-
-     background-color: #AB8882;
+    background-color: #AB8882;
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
@@ -301,14 +299,13 @@ header ul.navigation li a.active {
         0 20px 40px var(--glass-shadow),
         inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
         inset 0 -1.5px 2px rgba(0, 0, 0, 0.03);
-
     border-radius: 100px;
     cursor: pointer;
     transition: all 0.25s ease;
 }
 
 .open-form-btn:hover {
-     background-color: #AB8882;
+    background-color: #AB8882;
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(43, 39, 37, 0.18);
 }
@@ -325,9 +322,15 @@ main {
     align-items: center;
 }
 
-.pricelist-grid {
+.pricelist-container {
     width: 100%;
     max-width: 1080px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pricelist-grid {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
@@ -340,7 +343,7 @@ main {
     gap: 28px;
     width: 100%;
 }
-    
+
 /* LIQUID GLASS CARD CONTAINER */
 .glass-card {
     position: relative;
@@ -426,9 +429,11 @@ main {
     font-size: 14.5px;
 }
 
-/* NOTE CARD (BOTTOM LEFT) */
+/* TOP NOTE CARD */
 .note-card {
     position: relative;
+    width: 100%;
+    margin-bottom: 32px;
     padding: 24px 28px;
     border-radius: 26px;
     background: var(--glass-card-bg);
@@ -534,20 +539,26 @@ main {
         z-index: 10;
     }
 
-
     header ul.navigation li a {
         font-size: 1.25em;
+    }
+
+    .pricelist-container {
+        max-width: 540px;
     }
 
     .pricelist-grid {
         grid-template-columns: 1fr;
         gap: 24px;
-        max-width: 540px;
     }
 
     .glass-card, .note-card {
         padding: 26px 22px;
         border-radius: 26px;
+    }
+
+    .note-card {
+        margin-bottom: 24px;
     }
 }
 
