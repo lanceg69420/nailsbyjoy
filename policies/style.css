@@ -288,7 +288,7 @@ header ul.navigation li a.active {
     font-size: 14px;
     font-weight: 600;
     color: var(--text-main);
-     background-color: #AB8882;
+    background-color: #AB8882;
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
@@ -302,13 +302,13 @@ header ul.navigation li a.active {
 }
 
 .open-form-btn:hover {
-     background-color: #AB8882;
+    background-color: #AB8882;
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(43, 39, 37, 0.18);
 }
 
 /* =====================================================
-   MAIN &  CARD LAYOUT
+   MAIN & CARD LAYOUT
 ===================================================== */
 main {
     width: 100%;
@@ -330,13 +330,6 @@ main {
     position: relative;
     border-radius: 36px;
     background: rgba(212, 212, 210, 0.158);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--glass-border);
-    box-shadow: 
-        0 20px 40px var(--glass-shadow),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
-        inset 0 -1.5px 2px rgba(0, 0, 0, 0.03);
     backdrop-filter: blur(35px);
     -webkit-backdrop-filter: blur(35px);
     border: 1.5px solid var(--glass-card-border);
@@ -358,6 +351,9 @@ main {
     font-weight: 700;
     color: var(--accent-btn);
     letter-spacing: 20px;
+    text-indent: 20px;
+    text-align: center;
+    width: 100%;
     text-transform: uppercase;
     text-shadow: 0 2px 6px rgba(45, 24, 25, 0.35);
     margin-bottom: 18px;
@@ -369,23 +365,19 @@ main {
     background: #AB8882;
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--inner-border);
     box-shadow: 
         0 20px 40px var(--glass-shadow),
         inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
         inset 0 -1.5px 2px rgba(0, 0, 0, 0.03);
-    border: 1px solid var(--inner-border);
     border-radius: 20px;
     overflow: hidden;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
 }
 
 .policy-table {
     display: flex;
     flex-direction: column;
 }
-
 
 .policy-row {
     padding: 16px 22px;
@@ -549,13 +541,12 @@ main {
         border-radius: 28px;
     }
 
-    /* Centers the heading on tablets & mobile screens */
     .glass-card h2,
     .policy-card h2 {
         text-align: center;
         width: 100%;
-        letter-spacing: 8px; /* Reduced so it fits cleanly without clipping */
-        text-indent: 8px;    /* Offsets trailing spacing to preserve exact centering */
+        letter-spacing: 20px;
+        text-indent: 20px;
     }
 
     .policy-row {
@@ -570,8 +561,10 @@ main {
 
     .glass-card h2,
     .policy-card h2 {
-        font-size: 20px;
-        letter-spacing: 4px;
-        text-indent: 4px;
+        font-size: 18px;
+        letter-spacing: 20px;
+        text-indent: 20px;
+        text-align: center;
+        width: 100%;
     }
 }
