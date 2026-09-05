@@ -366,7 +366,7 @@ main {
 /* INNER TABLE CONTAINER */
 .inner-table {
     width: 100%;
-    background: rgba(48, 48, 46, 0.322);
+    background: #AB8882;
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
