@@ -1,5 +1,49 @@
-<main id="pricelist">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nails by Joy - Price List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/LOGOO.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/5d7cbd0185.js" crossorigin="anonymous"></script>
+    <script src="one.js"></script>
+</head>
+<body>
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-content">
+            <div class="logo-frame intro-logo-frame">
+                <img src="/LOGOO.png" class="intro-logo-img" alt="Nails by Joy Logo">
+            </div>
+            <h1 class="intro-title">Nails by Joy</h1>
+            <p class="intro-subtitle">Elegance at Your Fingertips</p>
+        </div>
+    </div>
+    
+    <header>
+        <a href="/index.html">
+            <div class="logo-frame header-logo-frame">
+                <img src="/LOGOO.png" class="logo" alt="Nails by Joy Logo">
+            </div>
+        </a>
+        <a href="/index.html">
+            <h1>Nails by Joy</h1>
+        </a>
+        <div class="one" onclick="toggleMenu();"></div>
+        <ul class="navigation">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/portfolio/portfolio.html">Portfolio</a></li>
+            <li><a href="/pricelist/Pricelist.html" class="active">Price List</a></li>
+            <li><a href="/policies/Policies.html">Policies</a></li>
+            <li>
+                <button class="open-form-btn" onclick="openFormPopup()">Book Here</button>
+            </li>
+        </ul>
+    </header>
+
+    <main id="pricelist">
         <div class="pricelist-container">
+            <!-- Note Banner at the Top -->
             <div class="note-card">
                 <h4>Note:</h4>
                 <p>
@@ -7,6 +51,7 @@
                 </p>
             </div>
 
+            <!-- Two-Column Service Grid -->
             <div class="pricelist-grid">
                 <div class="column-cards">
                     <div class="glass-card">
@@ -50,6 +95,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="glass-card">
                         <h2>Removal</h2>
                         <div class="inner-table">
@@ -88,6 +134,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="glass-card">
                         <h2>Gel X Extension</h2>
                         <p class="service-desc">
@@ -109,6 +156,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="glass-card">
                         <h2>Builder Gel (BIAB)</h2>
                         <p class="service-desc">
@@ -134,3 +182,42 @@
             </div>
         </div>
     </main>
+
+    <script>
+        // Dismiss intro animation after 2 seconds
+        window.addEventListener('load', () => {
+            const intro = document.getElementById('introOverlay');
+            setTimeout(() => {
+                if (intro) {
+                    intro.classList.add('hide');
+                }
+            }, 2000);
+        });
+
+        // Opens the Google Form in a popup window
+        function openFormPopup() {
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfi3yc2SjxW4avX0KEG05gCc7Qm8i3ABq9QHa5CF0OogXIJiw/viewform";
+            const width = 640;
+            const height = 800;
+            const left = window.screen.width / 2 - width / 2;
+            const top = window.screen.height / 2 - height / 2;
+            window.open(
+                formUrl,
+                "GoogleFormPopup",
+                `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+            );
+        }
+
+        // Toggle mobile navigation
+        function toggleMenu() {
+            const toggle = document.querySelector('.one');
+            const navigation = document.querySelector('header ul.navigation');
+            toggle.classList.toggle('active');
+            navigation.classList.toggle('active');
+            document.body.style.overflow = navigation.classList.contains('active')
+                ? 'hidden'
+                : '';
+        }
+    </script>
+</body>
+</html>
