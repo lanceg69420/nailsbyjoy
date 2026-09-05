@@ -483,8 +483,8 @@ main {
         cursor: pointer;
         z-index: 1001;
         position: relative;
-        border-top: 2px solid var(--accent-dark);
-        border-bottom: 2px solid var(--accent-dark);
+        border-top: 2px solid var(--accent-btn);
+        border-bottom: 2px solid var(--accent-btn);
         transition: all 0.3s ease;
     }
 
@@ -496,7 +496,7 @@ main {
         transform: translateY(-50%);
         width: 100%;
         height: 2px;
-        background-color: var(--accent-dark);
+        background-color: var(--accent-btn);
         transition: all 0.3s ease;
     }
 
@@ -522,7 +522,7 @@ main {
         transform: translateY(-50%) rotate(-45deg);
         width: 100%;
         height: 2px;
-        background-color: var(--accent-dark);
+        background-color: var(--accent-btn);
     }
 
     header ul.navigation.active {
