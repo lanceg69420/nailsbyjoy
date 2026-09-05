@@ -484,7 +484,7 @@ main {
         z-index: 1001;
         position: relative;
         border-top: 2px solid var(--accent-btn);
-        border-bottom: 2px solid var(--accent-btn;
+        border-bottom: 2px solid var(--accent-btn);
         transition: all 0.3s ease;
     }
 
