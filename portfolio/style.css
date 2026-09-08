@@ -13,11 +13,19 @@
     --text-muted: #FFF;
     --accent-dark: #FFF;
     --accent-btn: #3d3531;
-    --glass-bg: rgba(245, 243, 240, 0.45);
+    --glass-bg: rgba(212, 212, 210, 0.089);
     --glass-border: rgba(255, 255, 255, 0.7);
     --glass-shadow: rgba(60, 50, 45, 0.08);
     --alt1: rgba(255, 255, 255, 0.671);
     --alt2: #754B4D;
+    --bg-main: #AB8882;
+    --glass-dark: #ab88824d;
+    --header-main: rgba(255, 255, 255, 0.671);
+
+    /* Neumorphic button variables */
+    --neu-surface: #8c7672;
+    --neu-ring: #826c68;
+    --neu-shadow: rgba(45, 33, 31, 0.45);
 
     /* Swiper Controls Theme */
     --primary-color: #754B4D;
@@ -43,13 +51,31 @@ html, body {
 }
 
 body {
-    background-color: #AB8882;
+    
     background-attachment: fixed;
-    color: var(--text-main);
+  
+    color: var(--header-main);
     font-family: var(--font-pairing);
     min-height: 100vh;
 }
-
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200vmax;  /* Large enough to cover screen at any rotation */
+    height: 200vmax;
+    
+    /* Background Image Setup */
+    background-image: url(../5.jfif);
+    
+    /* Center and Rotate */
+    transform: translate(-50%, -50%) rotate(90deg); /* Adjust angle: 45deg, 90deg, 180deg, etc. */
+    
+    /* Keep it behind all site content */
+    z-index: -1;
+    pointer-events: none;
+}
 /* =====================================================
    INTRO OVERLAY ANIMATION
 ===================================================== */
@@ -194,13 +220,13 @@ header::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: rgba(255, 255, 255, 0.671);
+    background-color: var(--bg-main);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     
     box-shadow: 
         0 20px 40px var(--glass-shadow),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0),
         inset 0 -1.5px 2px rgba(0, 0, 0, 0.03);
     border-bottom: 1px solid var(--glass-border);
     z-index: -1;
@@ -229,9 +255,9 @@ header > a:nth-of-type(2) {
 header a h1 {
     font-family: var(--font-secondary);
     margin-left: 24px;
-    font-size: 22px;
+    font-size: 30px;
     font-weight: 600;
-    color: var(--accent-btn);
+    color: var(--accent-dark);
     letter-spacing: -0.4px;
     white-space: nowrap;
     overflow: hidden;
@@ -248,7 +274,7 @@ header ul.navigation {
 
 header ul.navigation li a {
     font-family: var(--font-pairing);
-    color: var(--accent-btn);
+    color: var(--accent-dark);
     font-size: 14.5px;
     font-weight: 400;
     text-decoration: none;
@@ -264,12 +290,12 @@ header ul.navigation li a::after {
     left: 0;
     width: 0%;
     height: 1.5px;
-    background-color: var(--accent-btn);
+    background-color: var(--accent-dark);
     transition: width 0.25s ease;
 }
 
 header ul.navigation li a:hover {
-    color: var(--accent-btn);
+    color: var(--accent-dark);
 }
 
 header ul.navigation li a:hover::after,
@@ -278,7 +304,7 @@ header ul.navigation li a.active::after {
 }
 
 header ul.navigation li a.active {
-    color: var(--accent-btn) !important;
+    color: var(--accent-dark) !important;
 }
 
 .open-form-btn {
@@ -286,8 +312,8 @@ header ul.navigation li a.active {
     padding: 10px 22px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--text-main);
-     background-color: #AB8882;
+    color: var(--accent-btn);
+     background-color: var(--header-main);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
@@ -317,7 +343,7 @@ header ul.navigation li a.active {
 }
 
 .top-content {
-    background: rgba(212, 212, 210, 0.089);
+    background: var(--glass-dark);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
@@ -343,7 +369,7 @@ header ul.navigation li a.active {
     flex: 1;
     font-family: var(--font-pairing);
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--bg-main);
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -352,15 +378,15 @@ header ul.navigation li a.active {
 }
 
 .filter-tab:hover {
-    color: #ffffff;
+    color: var(--accent-btn);
     background-color: rgba(255, 255, 255, 0.12);
 }
 
 .filter-tab.active {
-    color: #ffffff;
+    color: var(--accent-btn);
     font-weight: 700;
     background-color: rgba(255, 255, 255, 0.22);
-    box-shadow: inset 0 -3px 0 #ffffff;
+    box-shadow: inset 0 -3px 0 var(--accent-btn);
 }
 
 /* =====================================================
@@ -372,7 +398,7 @@ header ul.navigation li a.active {
 }
 
 #arigato {
-    margin-top: 95px;
+    margin-top: 9px;
     padding: 2rem 0;
 }
 
@@ -508,7 +534,7 @@ header ul.navigation li a.active {
     font-family: var(--font-secondary) !important;
     font-size: 16px !important;
     font-weight: 600 !important;
-    color: #ffffff !important;
+    color: var(--accent-btn) !important;
     letter-spacing: 1px !important;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
 }

@@ -11,13 +11,21 @@
     --bg-base: #754B4D;
     --text-main: #FFF;
     --text-muted: #FFF;
-    --accent-dark: #3d3531;
-    --accent-btn: ##754B4D;
-    --glass-bg: rgba(245, 243, 240, 0.45);
+    --accent-dark: #FFF;
+    --accent-btn: #3d3531;
+    --glass-bg: rgba(212, 212, 210, 0.089);
     --glass-border: rgba(255, 255, 255, 0.7);
     --glass-shadow: rgba(60, 50, 45, 0.08);
-    --alt1:  rgba(255, 255, 255, 0.671);
+    --alt1: rgba(255, 255, 255, 0.671);
     --alt2: #754B4D;
+    --bg-main: #AB8882;
+    --glass-dark: #ab88824d;
+    --header-main: rgba(255, 255, 255, 0.671);
+
+    /* Neumorphic button variables */
+    --neu-surface: #8c7672;
+    --neu-ring: #826c68;
+    --neu-shadow: rgba(45, 33, 31, 0.45);
 }
 
 * {
@@ -38,7 +46,7 @@ html, body {
 }
 
 body {
-    background-color: #AB8882;
+    background-color: var(--header-main);
     background-attachment: fixed;
     color: var(--text-main);
     font-family: var(--font-pairing);
@@ -58,7 +66,6 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 99999;
-    
     opacity: 1;
     visibility: visible;
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
@@ -116,7 +123,6 @@ body {
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Exit State */
 .intro-overlay.hide {
     opacity: 0;
     visibility: hidden;
@@ -145,7 +151,6 @@ body {
     }
 }
 
-/* Reveal underlying page content */
 header {
     animation: headerReveal 0.8s ease-out 2s both;
 }
@@ -188,13 +193,12 @@ header::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: rgba(255, 255, 255, 0.671);
+    background-color: var(--bg-main);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    
     box-shadow: 
-        0 20px 40px var(--glass-shadow),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
+        0 20px 40px var(--glass-dark),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0),
         inset 0 -1.5px 2px rgba(0, 0, 0, 0.03);
     border-bottom: 1px solid var(--glass-border);
     z-index: -1;
@@ -221,9 +225,9 @@ header > a:nth-of-type(2) {
 header a h1 {
     font-family: var(--font-secondary);
     margin-left: 24px;
-    font-size: 22px;
+    font-size: 30px;
     font-weight: 600;
-    color: var(--accent-btn);
+    color: var(--accent-dark);
     letter-spacing: -0.4px;
 }
 
@@ -240,7 +244,7 @@ header ul.navigation {
 
 header ul.navigation li a {
     font-family: var(--font-pairing);
-    color: var(--accent-btn);
+    color: var(--accent-dark);
     font-size: 14.5px;
     font-weight: 400;
     text-decoration: none;
@@ -256,12 +260,12 @@ header ul.navigation li a::after {
     left: 0;
     width: 0%;
     height: 1.5px;
-    background-color: var(--accent-btn);
+    background-color: var(--accent-dark);
     transition: width 0.25s ease;
 }
 
 header ul.navigation li a:hover {
-    color: var(--accent-btn);
+    color: var(--accent-dark);
 }
 
 header ul.navigation li a:hover::after,
@@ -270,7 +274,7 @@ header ul.navigation li a.active::after {
 }
 
 header ul.navigation li a.active {
-    color: var(--accent-btn) !important;
+    color: var(--accent-dark) !important;
 }
 
 /* =====================================================
@@ -281,9 +285,8 @@ header ul.navigation li a.active {
     padding: 10px 22px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--text-main);
-
-     background-color: #AB8882;
+    color: var(--accent-btn);
+    background-color: var(--header-main);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
@@ -291,17 +294,13 @@ header ul.navigation li a.active {
         0 20px 40px var(--glass-shadow),
         inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
         inset 0 -1.5px 2px rgba(0, 0, 0, 0.03);
-
-    
-   
     border-radius: 100px;
     cursor: pointer;
-   
     transition: all 0.25s ease;
 }
 
 .open-form-btn:hover {
-    background-color: #AB8882;
+    background-color: var(--header-main);
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(43, 39, 37, 0.18);
 }
@@ -333,7 +332,7 @@ main {
     padding: 42px 48px;
     border-radius: 32px;
     overflow: hidden;
-    background: rgba(212, 212, 210, 0.089);
+    background: var(--glass-dark);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
@@ -356,7 +355,7 @@ main {
 
 .glass-card h2 {
     font-family: var(--font-secondary);
-    color: var(--accent-dark);
+    color: var(--accent-btn);
     font-size: 26px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -366,7 +365,7 @@ main {
 
 .glass-card p {
     font-family: var(--font-pairing);
-    color: var(--text-muted);
+    color: var(--accent-btn);
     font-size: 20px;
     line-height: 1.7;
     font-weight: 400;
@@ -384,7 +383,7 @@ main {
 
 .service-details h4 {
     font-family: var(--font-secondary);
-    color: var(--text-main);
+    color: var(--accent-btn);
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 2px;
@@ -395,8 +394,9 @@ main {
     font-size: 15px;
     line-height: 1.6;
 }
+
 /* =====================================================
-   SOCIAL LINKS (ABOUT CARD)
+   SOCIAL LINKS & LOCATION (CLAY / NEUMORPHIC BUTTONS)
 ===================================================== */
 .social-links {
     display: flex;
@@ -422,7 +422,7 @@ main {
     font-size: 15px;
     font-style: italic;
     letter-spacing: 0.5px;
-    color: var(--text-main);
+    color: var(--accent-btn);
     opacity: 0.9;
 }
 
@@ -433,61 +433,65 @@ main {
     flex-shrink: 0;
 }
 
-.social-links a {
+/* The embossed 3D pill button container */
+.social-links a,
+.location-info i {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    color: var(--text-main);
-    font-size: 18px;
     text-decoration: none;
-
-    /* Glass frosted background & border */
-    background: rgba(255, 255, 255, 0.062);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1.5px solid var(--glass-border);
-
-    /* Glass shadows & inner highlight */
+    background-color: var(--neu-surface);
+    color: #ffffff;
+    font-size: 20px;
+    border: none;
     box-shadow: 
-        0 12px 24px var(--glass-shadow),
-        0 4px 10px rgba(0, 0, 0, 0.12),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
-        inset 0 -1.5px 2px rgba(0, 0, 0, 0.08);
-
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-                box-shadow 0.25s ease, 
-                background-color 0.25s ease,
-                color 0.25s ease;
+        0 0 0 3px var(--neu-ring),
+        0 8px 16px var(--neu-shadow),
+        inset 1.5px 1.5px 3px rgba(255, 255, 255, 0.4),
+        inset -2px -2px 4px rgba(35, 22, 20, 0.55);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.social-links a:hover {
-    transform: translateY(-3px) scale(1.04);
-    background-color: rgba(255, 255, 255, 0.35);
-    color: var(--accent-btn);
+
+/* 3D cast-shadow applied directly to glyphs */
+.social-links a i,
+.location-info i {
+    filter: drop-shadow(0 2px 2px rgba(40, 25, 23, 0.45));
+}
+
+.social-links a:hover,
+.location-info i:hover {
+    transform: translateY(-2px);
     box-shadow: 
-        0 16px 30px rgba(60, 50, 45, 0.2),
-        0 6px 12px rgba(0, 0, 0, 0.15),
-        inset 0 1.5px 2px rgba(255, 255, 255, 1);
-}   
+        0 0 0 3.5px #8e7874,
+        0 12px 20px rgba(45, 33, 31, 0.5),
+        inset 2px 2px 3px rgba(255, 255, 255, 0.5),
+        inset -2px -2px 4px rgba(35, 22, 20, 0.6);
+}
+
+.social-links a:active {
+    transform: translateY(1px);
+    box-shadow: 
+        0 0 0 2.5px #7a6561,
+        0 4px 8px rgba(45, 33, 31, 0.3),
+        inset 3px 3px 5px rgba(25, 14, 12, 0.65),
+        inset -1.5px -1.5px 3px rgba(255, 255, 255, 0.25);
+}
 
 .location-info {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     line-height: 1.6;
     font-family: var(--font-pairing);
     font-size: 14px;
-    color: var(--text-main);
+    color: var(--accent-btn);
     opacity: 0.9;
     white-space: nowrap;
 }
 
-.location-info i {
-    color: var(--text-main);
-    font-size: 45px;
-}
 /* =====================================================
    IMAGE GALLERY
 ===================================================== */
