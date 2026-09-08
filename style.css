@@ -11,9 +11,9 @@
     --bg-base: #754B4D;
     --text-main: #FFF;
     --text-muted: #FFF;
-    --accent-dark: #FFF;
-    --accent-btn: #3d3531;
-    --glass-bg: rgba(245, 243, 240, 0.45);
+    --accent-dark: #3d3531;
+    --accent-btn: #FFF;
+    --glass-bg: 754B4D;
     --glass-border: rgba(255, 255, 255, 0.7);
     --glass-shadow: rgba(60, 50, 45, 0.08);
     --alt1:  rgba(255, 255, 255, 0.671);
