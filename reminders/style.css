@@ -562,9 +562,20 @@ main {
         z-index: 10;
     }
 
-    header ul.navigation li a {
+    header ul.navigation.active li a {
         font-size: 1.25em;
+        color: var(--accent-btn) !important;
     }
+
+    header ul.navigation.active li a::after {
+        background-color: var(--accent-btn);
+    }
+
+    header ul.navigation.active li a:hover,
+    header ul.navigation.active li a.active {
+        color: var(--accent-btn) !important;
+    }
+
 
     .policy-card {
         padding: 28px 20px;
