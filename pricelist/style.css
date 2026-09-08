@@ -13,11 +13,19 @@
     --text-muted: #FFF;
     --accent-dark: #FFF;
     --accent-btn: #3d3531;
-    --glass-bg: rgba(245, 243, 240, 0.45);
+    --glass-bg: rgba(212, 212, 210, 0.089);
     --glass-border: rgba(255, 255, 255, 0.7);
     --glass-shadow: rgba(60, 50, 45, 0.08);
     --alt1: rgba(255, 255, 255, 0.671);
     --alt2: #754B4D;
+    --bg-main: #AB8882;
+    --glass-dark: #ab88824d;
+    --header-main: rgba(255, 255, 255, 0.671);
+
+    /* Neumorphic button variables */
+    --neu-surface: #8c7672;
+    --neu-ring: #826c68;
+    --neu-shadow: rgba(45, 33, 31, 0.45);
 
     /* Liquid Glassmorphic Card Accents */
     --glass-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.12) 100%);
@@ -49,13 +57,30 @@ html, body {
 }
 
 body {
-    background-color: #AB8882;
+ 
     background-attachment: fixed;
     color: var(--text-main);
     font-family: var(--font-pairing);
     min-height: 100vh;
 }
-
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200vmax;  /* Large enough to cover screen at any rotation */
+    height: 200vmax;
+    
+    /* Background Image Setup */
+    background-image: url(../portfolio/images/5.jfif);
+    
+    /* Center and Rotate */
+    transform: translate(-50%, -50%) rotate(90deg); /* Adjust angle: 45deg, 90deg, 180deg, etc. */
+    
+    /* Keep it behind all site content */
+    z-index: -1;
+    pointer-events: none;
+}
 /* =====================================================
    INTRO ANIMATION (FADE & ZOOM OUT)
 ===================================================== */
@@ -198,7 +223,7 @@ header::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: rgba(255, 255, 255, 0.671);
+    background-color: var(--bg-main);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     box-shadow: 
@@ -230,9 +255,9 @@ header > a:nth-of-type(2) {
 header a h1 {
     font-family: var(--font-secondary);
     margin-left: 24px;
-    font-size: 22px;
+    font-size: 30px;
     font-weight: 600;
-    color: var(--accent-btn);
+    color: var(--accent-dark);
     letter-spacing: -0.4px;
 }
 
@@ -249,7 +274,7 @@ header ul.navigation {
 
 header ul.navigation li a {
     font-family: var(--font-pairing);
-    color: var(--accent-btn);
+    color: var(--accent-dark);
     font-size: 14.5px;
     font-weight: 400;
     text-decoration: none;
@@ -265,12 +290,12 @@ header ul.navigation li a::after {
     left: 0;
     width: 0%;
     height: 1.5px;
-    background-color: var(--accent-btn);
+    background-color: var(--accent-dark);
     transition: width 0.25s ease;
 }
 
 header ul.navigation li a:hover {
-    color: var(--accent-btn);
+    color: var(--accent-dark);
 }
 
 header ul.navigation li a:hover::after,
@@ -279,7 +304,7 @@ header ul.navigation li a.active::after {
 }
 
 header ul.navigation li a.active {
-    color: var(--accent-btn) !important;
+    color: var(--accent-dark) !important;
 }
 
 /* =====================================================
@@ -290,8 +315,8 @@ header ul.navigation li a.active {
     padding: 10px 22px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--text-main);
-    background-color: #AB8882;
+    color: var(--accent-btn);
+    background-color: var(--header-main);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
@@ -305,7 +330,7 @@ header ul.navigation li a.active {
 }
 
 .open-form-btn:hover {
-    background-color: #AB8882;
+    background-color: var(--header-main);
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(43, 39, 37, 0.18);
 }
@@ -349,7 +374,7 @@ main {
     position: relative;
     padding: 34px 36px;
     border-radius: 32px;
-    background: var(--glass-card-bg);
+    background: var(--glass-dark);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border: 1.5px solid var(--glass-card-border);
@@ -369,7 +394,7 @@ main {
     font-family: var(--font-secondary);
     font-size: 23px;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--accent-btn);
     text-shadow: 0 2px 6px rgba(45, 24, 25, 0.35);
     margin-bottom: 12px;
 }
@@ -377,7 +402,7 @@ main {
 .glass-card .service-desc {
     font-size: 11.5px;
     line-height: 1.6;
-    color: #ffffff;
+    color: var(--accent-btn);
     margin-bottom: 18px;
     font-weight: 400;
 }
@@ -436,7 +461,7 @@ main {
     margin-bottom: 32px;
     padding: 24px 28px;
     border-radius: 26px;
-    background: var(--glass-card-bg);
+    background: var(--glass-dark);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border: 1.5px solid var(--glass-card-border);
@@ -448,14 +473,14 @@ main {
     font-size: 14px;
     font-style: italic;
     letter-spacing: 1px;
-    color: #ffffff;
+    color: var(--accent-btn);
     margin-bottom: 8px;
 }
 
 .note-card p {
     font-size: 11.5px;
     line-height: 1.6;
-    color: #ffffff;
+    color: var(--accent-btn);
 }
 
 /* =====================================================
