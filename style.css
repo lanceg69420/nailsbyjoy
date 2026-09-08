@@ -607,14 +607,25 @@ main {
         align-items: center;
         flex-direction: column;
         gap: 24px;
-        background: var(--accent-btn);
+        background: rgba(212, 212, 210, 0.911);
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         z-index: 10;
     }
 
-    header ul.navigation li a {
+    /* Mobile navigation link colors & active states */
+    header ul.navigation.active li a {
         font-size: 1.25em;
+        color: var(--accent-btn) !important;
+    }
+
+    header ul.navigation.active li a::after {
+        background-color: var(--accent-btn);
+    }
+
+    header ul.navigation.active li a:hover,
+    header ul.navigation.active li a.active {
+        color: var(--accent-btn) !important;
     }
 
     main {
