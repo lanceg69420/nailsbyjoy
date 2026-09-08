@@ -607,7 +607,7 @@ main {
         align-items: center;
         flex-direction: column;
         gap: 24px;
-        background: rgba(212, 212, 210, 0.911);
+        background: var(--accent-btn);
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         z-index: 10;
